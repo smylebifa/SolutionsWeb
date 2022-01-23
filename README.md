@@ -1,1 +1,1 @@
-# SolutionsPHP
+# Решения задач на PHP
