@@ -8,7 +8,7 @@
 */
 
 class Pirate {
-  var $drunk = false;
+  private $drunk = false;
   
   function toDrunk($bochka) {
     if (!$this->drunk and $bochka->drinkRum())
@@ -21,7 +21,7 @@ class Pirate {
 
 class Barrel {
   
-  var $rum = 10;
+  private $rum = 10;
   
   function drinkRum() {
 
