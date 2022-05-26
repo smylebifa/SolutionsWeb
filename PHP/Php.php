@@ -692,4 +692,14 @@ $myclass2->foo2(); // Выводятся константы public и protected,
 
 
 
+// 18. Работа с json
+
+// Вывод json в форматированном виде
+
+echo '<pre>';
+
+print_r($data);
+
+
 ?> 
+
