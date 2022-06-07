@@ -241,9 +241,9 @@
 // 9. Дан массив вида [1, ' , 2, ' , ' , 3] – то есть в нем есть пустые строки. Удалите все
 // такие элементы из этого массива.*
 
-$unCleanList = [1, '' , 2, '', '', 3];
-$filteredList = array_filter($unCleanList);
-var_dump($filteredList);
+// $unCleanList = [1, '' , 2, '', '', 3];
+// $filteredList = array_filter($unCleanList);
+// var_dump($filteredList);
 
 
 // 10. Напишите функцию, которая корректно будет складывать часы и минуты.
@@ -252,24 +252,28 @@ var_dump($filteredList);
 
 function h2s($h) 
 {
-  $h = $h/3600 % 24;
-  $h = $h % 10 ? "0".$h : $h;
+  // % - целочисленный остаток от деления $a на $b.
+  // деление на 24 реализует получение количества часов на выходе не больше 23
+  $h = $h/3600 % 24; // $h = 2 для заданного набора исходных данных (7800 sec)
+  $h = intdiv($h, 10) ? $h : "0" . $h;
   $h = $h == 0 ? $h = "00" : $h;
   return $h;
 }
 
 function m2s($m) 
 {
-  $m = $m/60 % 60;
-  $m = $m % 10 ? "0".$m : $m;
+  // деление на 60 реализует получение количества минут на выходе не больше 60
+  $m = $m/60 % 60; // m = 10 (130 - 60*2) для заданного набора исходных данных (7800 sec)
+  $m = intdiv($m, 10) ? $m : "0" . $m;
   $m = $m == 0 ? $m = "00" : $m;
   return $m;
 }
 
 function s($s) 
 {
-  $s = $s % 60;
-  $s = $s % 10 ? "0".$s : $s;
+  // деление на 60 реализует получение количества секунд на выходе не больше 60
+  $s = $s % 60; // m = 0 для заданного набора исходных данных (7800 sec)
+  $s = intdiv($s, 10) ? $s : "0" . $s;
   $s = $s == 0 ? $s = "00" : $s;
   return $s;
 }
@@ -288,34 +292,29 @@ function seconds2normal($seconds)
   $v = max($seconds,0);
   $h = h2s($v);
   $m = m2s($v);
-  $s = s($s);
+  $s = s($v);
   return " $h:$m:$s";
 }
 
 function timePlus() 
 {
+  // func_get_args - возвращает массив, содержащий аргументы функции
   $times = func_get_args();
+  $time = 0;
   for ($i=0;$i<count($times);$i++) 
   {
-    $nowtime = explode(":",$times[$i]);
-    $time += normal2seconds(" $nowtime[0]:$nowtime[1]:$nowtime[2]"); 
+    // explode - разбивает строку с помощью разделителя и возвращает массив строк
+    // $nowtime = explode(":",$times[$i]);
+    // $time += normal2seconds(" $nowtime[0]:$nowtime[1]:$nowtime[2]"); 
+
+    $time += normal2seconds($times[$i]);
   }
-  
+
   return seconds2normal($time);
 }
 
+// 130 min = 7800 sec
 echo timePlus("01:20:00","00:50:00");
-
-
-
-
-
-
-
-
-
-
-
 
 
 
